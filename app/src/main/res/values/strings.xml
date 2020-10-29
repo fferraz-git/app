@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">App1</string>
+    <string name="app_name">CityLister</string>
     <string name="add_city">Add city</string>
-    <string name="empty_not_saved">Cidade vazia: não inserida</string>
-    <string name="insertcity">Insira Cidade</string>
-    <string name="insertcountry">Insira País</string>
+    <string name="empty_not_saved">Empty City: please insert</string>
+    <string name="insertcity">Insert City</string>
+    <string name="insertcountry">Insert Country</string>
 </resources>
