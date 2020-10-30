@@ -35,7 +35,7 @@ class AddCity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY_CITY = "com.example.android.city"
+        const val EXTRA_REPLY_CITY = "com.example.androaid.city"
         const val EXTRA_REPLY_COUNTRY = "com.example.android.country"
     }
 }

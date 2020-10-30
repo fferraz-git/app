@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ipvc.estg.room.R
 import ipvc.estg.room.entities.City
 
-class CityAdapter internal constructor(
-    context: Context
-) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+class CityAdapter internal constructor(context: Context) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var cities = emptyList<City>() // Cached copy of cities
