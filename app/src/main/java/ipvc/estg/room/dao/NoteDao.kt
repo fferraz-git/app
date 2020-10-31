@@ -7,7 +7,7 @@ import ipvc.estg.room.entities.Note
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * from notes ORDER BY title ASC")
+    @Query("SELECT * from notes ORDER BY id ASC")
     fun getAllNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM notes WHERE title == :title")
