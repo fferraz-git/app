@@ -2,7 +2,6 @@ package ipvc.estg.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import ipvc.estg.room.entities.City
 import ipvc.estg.room.entities.Note
 
 @Dao

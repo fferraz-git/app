@@ -4,11 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ipvc.estg.room.R
-import ipvc.estg.room.entities.City
 import ipvc.estg.room.entities.Note
+import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class NoteAdapter internal constructor  (context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
@@ -16,7 +15,9 @@ class NoteAdapter internal constructor  (context: Context) : RecyclerView.Adapte
     private var notes = emptyList<Note>() // Cached copy of cities
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val noteItemView: TextView = itemView.findViewById(R.id.textView)
+        val noteItemView= itemView.textView
+        val noteTitleView = itemView.titles
+        val noteContentView= itemView.contents
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -26,10 +27,12 @@ class NoteAdapter internal constructor  (context: Context) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val current =  notes[position]
-        holder.noteItemView.text = current.id.toString() + " - " + current.title + "-" + current.content
+        holder.noteItemView.text = current.id.toString()
+        holder.noteTitleView.text = current.title
+        holder.noteContentView.text = current.content
     }
 
-    internal fun setCities(notes: List<Note>) {
+    internal fun setNotes(notes: List<Note>) {
         this.notes = notes
         notifyDataSetChanged()
     }

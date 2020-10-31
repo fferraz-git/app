@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ipvc.estg.room.adapters.CityAdapter
 import ipvc.estg.room.adapters.NoteAdapter
-import ipvc.estg.room.entities.City
 import ipvc.estg.room.entities.Note
 import ipvc.estg.room.viewModel.NoteViewModel
 
@@ -38,25 +36,25 @@ class MainActivity : AppCompatActivity() {
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         noteViewModel.allNotes.observe(this, Observer { notes ->
             // Update the cached copy of the words in the adapter.
-            notes?.let { adapter.setCities(it) }
+            notes?.let { adapter.setNotes(it) }
         })
 
         //Fab
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddCity::class.java)
+            val intent = Intent(this@MainActivity, AddNote::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
 
     }
 
-    //gets the data that is added in the AddCity Activity
+    //gets the data that is added in the AddNote Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val ptitle = data?.getStringExtra(AddCity.EXTRA_REPLY_CITY)
-            val pcontent = data?.getStringExtra(AddCity.EXTRA_REPLY_COUNTRY)
+            val ptitle = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE)
+            val pcontent = data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT)
 
             //if the data collect is not null it inserts it into the db
             if (ptitle!= null && pcontent != null) {
@@ -99,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
                 noteViewModel.getNotesByTitle("Portugal").observe(this, Observer { notes ->
                     // Update the cached copy of the words in the adapter.
-                    notes?.let { adapter.setCities(it) }
+                    notes?.let { adapter.setNotes(it) }
                 })
                 true
             }
@@ -114,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
                 noteViewModel.allNotes.observe(this, Observer { notes ->
                     // Update the cached copy of the words in the adapter.
-                    notes?.let { adapter.setCities(it) }
+                    notes?.let { adapter.setNotes(it) }
                 })
                 true
             }

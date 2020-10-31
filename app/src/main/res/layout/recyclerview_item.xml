@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
@@ -7,9 +7,27 @@
 
     <TextView
         android:id="@+id/textView"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark" />
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/titles"
+        android:layout_below="@id/textView"
+        android:layout_alignLeft="@id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <TextView
+        android:id="@+id/contents"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/titles"
+        android:layout_alignLeft="@id/titles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
+</RelativeLayout>
