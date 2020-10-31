@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CityLister</string>
-    <string name="add_city">Add city</string>
-    <string name="empty_not_saved">Empty City: please insert</string>
-    <string name="insertcity">Insert City</string>
-    <string name="insertcountry">Insert Country</string>
+    <string name="app_name">NoteLister</string>
+    <string name="add_city">Add Note</string>
+    <string name="empty_not_saved">Empty Title: please insert</string>
+    <string name="insertcity">Insert title</string>
+    <string name="insertcountry">Insert content</string>
 </resources>

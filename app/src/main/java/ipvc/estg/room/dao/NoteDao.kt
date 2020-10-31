@@ -9,27 +9,25 @@ import ipvc.estg.room.entities.Note
 interface NoteDao {
 
     @Query("SELECT * from notes ORDER BY title ASC")
-    fun getAllCities(): LiveData<List<Note>>
+    fun getAllNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM notes WHERE title == :title")
-    fun getCitiesByCountry(title: String): LiveData<List<Note>>
-
-    @Query("SELECT * FROM notes WHERE title == :title")
-    fun getCountryFromCity(title: String): LiveData<Note>
+    fun getNotesByTitle(title: String): LiveData<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(note: Note)
 
     @Update
-    suspend fun updateCity(notes: City)
+    suspend fun updateNotes(notes: Note)
 
     @Query("DELETE FROM notes")
     suspend fun deleteAll()
 
     @Query("DELETE FROM notes where title == :title")
-    suspend fun deleteByCity(title: String)
+    suspend fun deleteByTitle(title: String)
 
+    /*
     @Query("UPDATE notes SET content=:content WHERE title == :title")
-    suspend fun updateCountryFromCity(title: String, content: String)
+    suspend fun updateCountryFromCity(title: String, content: String)*/
 
 }

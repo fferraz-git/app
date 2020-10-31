@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ipvc.estg.room.adapters.CityAdapter
+import ipvc.estg.room.adapters.NoteAdapter
 import ipvc.estg.room.entities.City
-import ipvc.estg.room.viewModel.CityViewModel
+import ipvc.estg.room.entities.Note
+import ipvc.estg.room.viewModel.NoteViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var cityViewModel: CityViewModel
+    private lateinit var noteViewModel: NoteViewModel
     private val newWordActivityRequestCode = 1
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         // recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = CityAdapter(this)
+        val adapter = NoteAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // view model
-        cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-        cityViewModel.allCities.observe(this, Observer { cities ->
+        noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        noteViewModel.allNotes.observe(this, Observer { notes ->
             // Update the cached copy of the words in the adapter.
-            cities?.let { adapter.setCities(it) }
+            notes?.let { adapter.setCities(it) }
         })
 
         //Fab
@@ -53,13 +55,13 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val pcity = data?.getStringExtra(AddCity.EXTRA_REPLY_CITY)
-            val pcountry = data?.getStringExtra(AddCity.EXTRA_REPLY_COUNTRY)
+            val ptitle = data?.getStringExtra(AddCity.EXTRA_REPLY_CITY)
+            val pcontent = data?.getStringExtra(AddCity.EXTRA_REPLY_COUNTRY)
 
             //if the data collect is not null it inserts it into the db
-            if (pcity!= null && pcountry != null) {
-                val city = City(city = pcity, country = pcountry)
-                cityViewModel.insert(city)
+            if (ptitle!= null && pcontent != null) {
+                val note = Note(title = ptitle, content = pcontent)
+                noteViewModel.insert(note)
             }
 
         } else {
@@ -82,55 +84,56 @@ class MainActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             //delete all entries in the db
-            R.id.apagartudo -> {
-                cityViewModel.deleteAll()
+            R.id.DeleteAll -> {
+                noteViewModel.deleteAll()
                 true
             }
             //queries the database for all the cities in portugal
-            R.id.cidadesPortugal -> {
+            R.id.NotesTitle -> {
                 // recycler view
                 val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = CityAdapter(this)
+                val adapter = NoteAdapter(this)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(this)
                 // view model
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.getCitiesByCountry("Portugal").observe(this, Observer { cities ->
+                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+                noteViewModel.getNotesByTitle("Portugal").observe(this, Observer { notes ->
                     // Update the cached copy of the words in the adapter.
-                    cities?.let { adapter.setCities(it) }
+                    notes?.let { adapter.setCities(it) }
                 })
                 true
             }
             //queries the database and orders all the cities in DESC by alphabet
-            R.id.todasCidades -> {
+            R.id.AllNotes -> {
                 // recycler view
                 val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = CityAdapter(this)
+                val adapter = NoteAdapter(this)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(this)
                 // view model
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.allCities.observe(this, Observer { cities ->
+                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+                noteViewModel.allNotes.observe(this, Observer { notes ->
                     // Update the cached copy of the words in the adapter.
-                    cities?.let { adapter.setCities(it) }
+                    notes?.let { adapter.setCities(it) }
                 })
                 true
             }
             //queries the database and toasts the contry from where the city aveiro is
-            R.id.getCountryFromAveiro -> {
+            /*R.id.getCountryFromAveiro -> {
                 cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
                 cityViewModel.getCountryFromCity("Aveiro").observe(this, Observer { city ->
                     Toast.makeText(this, city.country, Toast.LENGTH_SHORT).show()
                 })
                 true
-            }
+            }*/
             //deletes the entry aveiro from the db
-            R.id.apagarAveiro -> {
-                cityViewModel.deleteByCity("Aveiro")
+            R.id.DeleteByTitle -> {
+                noteViewModel.deleteByTitle("Aveiro")
                 true
             }
+
             //alter the db aveiro entry
-            R.id.alterar -> {
+            /*R.id.alterar -> {
                 val city = City(id = 1, city = "xxx", country = "xxx")
                 cityViewModel.updateCity(city)
                 true
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             R.id.alteraraveiro -> {
                 cityViewModel.updateCountryFromCity("Aveiro", "Japão")
                 true
-            }
+            }*/
 
             else -> super.onOptionsItemSelected(item)
         }

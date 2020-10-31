@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ListagemCidades</string>
-    <string name="add_city">Adicione cidade</string>
-    <string name="empty_not_saved">Cidade vazia: não inserida</string>
-    <string name="insertcity">Insira Cidade</string>
-    <string name="insertcountry">Insira País</string>
+    <string name="app_name">ListagemNotas</string>
+    <string name="add_city">Adicione Nota</string>
+    <string name="empty_not_saved">Titulo vazio: não inserido</string>
+    <string name="insertcity">Insira Titulo</string>
+    <string name="insertcountry">Insira Conteudo</string>
 </resources>

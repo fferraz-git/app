@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: NoteRepository
+
     // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
@@ -22,7 +23,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     init {
         val notesDao = NoteDB.getDatabase(application, viewModelScope).noteDao()
         repository = NoteRepository(notesDao)
-        allNotes = repository.all
+        allNotes = repository.allNotes
     }
 
     /**
@@ -38,22 +39,24 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // delete by city
-    fun deleteByCity(title: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.deleteByCity(title)
+    fun deleteByTitle(title: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteByTitle(title)
     }
 
-    fun getCitiesByCountry(content: String): LiveData<List<Note>> {
-        return repository.getCitiesByCountry(content)
+    fun getNotesByTitle(title: String): LiveData<List<Note>> {
+        return repository.getNotesByTitle(title)
     }
 
-    fun getCountryFromCity(title: String): LiveData<Note> {
+   /* fun getCountryFromCity(title: String): LiveData<Note> {
         return repository.getCountryFromCity(title)
-    }
+    }*/
 
-    fun updateCity(note: Note) = viewModelScope.launch {
+
+    /*fun updateCity(note: Note) = viewModelScope.launch {
         repository.updateCity(note)
-    }
+    }*/
 
-    fun updateCountryFromCity(title: String, content: String) = viewModelScope.launch {
+    /*fun updateCountryFromCity(title: String, content: String) = viewModelScope.launch {
         repository.updateCountryFromCity(title, content)
-    }
+    }*/
+}
