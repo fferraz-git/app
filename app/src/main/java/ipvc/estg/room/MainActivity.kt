@@ -118,12 +118,13 @@ class MainActivity : AppCompatActivity() {
             }
             //queries the database and toasts the contry from where the city aveiro is
             /*R.id.getCountryFromAveiro -> {
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.getCountryFromCity("Aveiro").observe(this, Observer { city ->
-                    Toast.makeText(this, city.country, Toast.LENGTH_SHORT).show()
+                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+                noteViewModel.getNotesByTitle("Aveiro").observe(this, Observer { notes ->
+                    Toast.makeText(this, notes, Toast.LENGTH_SHORT).show()
                 })
                 true
             }*/
+
             //deletes the entry aveiro from the db
             R.id.DeleteByTitle -> {
                 noteViewModel.deleteByTitle("Aveiro")
@@ -131,16 +132,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             //alter the db aveiro entry
-            /*R.id.alterar -> {
-                val city = City(id = 1, city = "xxx", country = "xxx")
-                cityViewModel.updateCity(city)
+            R.id.Alter-> {
+                val note = Note(id = 1, title = "xxx", content = "xxx")
+                noteViewModel.updateNotes(note)
                 true
             }
+
             //changes aveiro country
-            R.id.alteraraveiro -> {
-                cityViewModel.updateCountryFromCity("Aveiro", "Japão")
+            R.id.AlterSpecific -> {
+                noteViewModel.updateContentFromTitle("Aveiro", "Japão")
                 true
-            }*/
+            }
 
             else -> super.onOptionsItemSelected(item)
         }

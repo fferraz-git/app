@@ -25,8 +25,7 @@ interface NoteDao {
     @Query("DELETE FROM notes where title == :title")
     suspend fun deleteByTitle(title: String)
 
-    /*
     @Query("UPDATE notes SET content=:content WHERE title == :title")
-    suspend fun updateCountryFromCity(title: String, content: String)*/
+    suspend fun updateContentFromTitle(title: String, content: String)
 
 }

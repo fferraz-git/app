@@ -5,4 +5,5 @@
     <string name="empty_not_saved">Titulo vazio: não inserido</string>
     <string name="insertcity">Insira Titulo</string>
     <string name="insertcountry">Insira Conteudo</string>
+    <string name="save">Gravar</string>
 </resources>
