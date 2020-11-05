@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //gets the data that is added in the AddNote Activity
+    //gets the data that is added in the AddCity Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
