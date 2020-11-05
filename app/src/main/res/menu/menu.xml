@@ -14,13 +14,12 @@
 
     </item>
 
-    <!--
-    <item android:id="@+id/getCountryFromAveiro"
-        android:title="Get País de Aveiro"
+    <item android:id="@+id/getNotefromTitle"
+        android:title="Get note from title"
         app:showAsAction="never">
 
     </item>
-    -->
+
 
     <item android:id="@+id/DeleteAll"
         android:title="Delete all"
@@ -33,18 +32,16 @@
         app:showAsAction="never">
     </item>
 
-    <!--
-    <item android:id="@+id/alterar"
-        android:title="Alterar"
+
+    <item android:id="@+id/Alter"
+        android:title="Alter"
         app:showAsAction="never">
 
     </item>
-    <item android:id="@+id/alteraraveiro"
-        android:title="Alterar Aveiro"
+    <item android:id="@+id/AlterSpecific"
+        android:title="Alter Aveiro"
         app:showAsAction="never">
 
     </item>
-    -->
-
 
 </menu>
