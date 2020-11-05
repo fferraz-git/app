@@ -15,12 +15,12 @@ class EditNote : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_city)
+        setContentView(R.layout.activity_edit_note)
 
-       titleText = findViewById(R.id.city)
-       contentText = findViewById(R.id.country)
+       titleText = findViewById(R.id.editTitle)
+       contentText = findViewById(R.id.editContent)
 
-        val button = findViewById<Button>(R.id.button_save)
+        val button = findViewById<Button>(R.id.updateBtt)
         button.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(titleText.text)) {
