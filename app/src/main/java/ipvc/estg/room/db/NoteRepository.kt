@@ -33,6 +33,11 @@ class NoteRepository(private val noteDao: NoteDao) {
         noteDao.deleteByTitle(title)
     }
 
+    suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note)
+    }
+
+
    /* suspend fun updateCity(note: Note) {
         noteDao.updateCity(note)
     }

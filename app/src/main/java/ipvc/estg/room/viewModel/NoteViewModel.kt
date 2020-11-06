@@ -1,18 +1,46 @@
 package ipvc.estg.room.viewModel
 
 import android.app.Application
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import ipvc.estg.room.R
 import ipvc.estg.room.db.NoteDB
 import ipvc.estg.room.db.NoteRepository
 import ipvc.estg.room.entities.Note
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NoteViewModel(application: Application) : AndroidViewModel(application) {
+class NoteViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository: NoteRepository
+
+    /*init {
+        itemView.setOnClickListener(this)
+        itemView.setOnLongClickListener(this)
+    }*/
+
+   /* private lateinit var note: Note
+
+    private val titleTextView: TextView = itemView.findViewById(R.id.recyclerview)*/
+
+    /*fun bind(note: Note) {
+        this.note = note
+        titleTextView.text = note.title
+    }
+
+    override fun onClick(view: View) {
+        Toast.makeText(view.context, "click", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        Toast.makeText(view.context, "long click", Toast.LENGTH_SHORT).show()
+        // Return true to indicate the click was handled
+        return true
+    }*/
 
     // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -47,9 +75,13 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getNotesByTitle(title)
     }
 
-   /* fun getCountryFromCity(title: String): LiveData<Note> {
-        return repository.getCountryFromCity(title)
-    }*/
+    fun updateNote(note: Note) = viewModelScope.launch{
+        repository.updateNote(note)
+    }
+
+    /* fun getCountryFromCity(title: String): LiveData<Note> {
+         return repository.getCountryFromCity(title)
+     }*/
 
 
     /*fun updateCity(note: Note) = viewModelScope.launch {
@@ -59,4 +91,6 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     /*fun updateCountryFromCity(title: String, content: String) = viewModelScope.launch {
         repository.updateCountryFromCity(title, content)
     }*/
+
+
 }

@@ -35,7 +35,7 @@ class AddNote : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY_TITLE = "com.example.androaid.city"
-        const val EXTRA_REPLY_CONTENT = "com.example.android.country"
+        const val EXTRA_REPLY_TITLE = "com.example.android.title"
+        const val EXTRA_REPLY_CONTENT = "com.example.android.content"
     }
 }

@@ -17,18 +17,20 @@ import ipvc.estg.room.adapters.NoteAdapter
 import ipvc.estg.room.entities.Note
 import ipvc.estg.room.viewModel.NoteViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
     private lateinit var noteViewModel: NoteViewModel
-    private val newWordActivityRequestCode = 1
-    
+    private val AddNoteRequestCode = 1
+    private val UpdateActivityRequestCode = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = NoteAdapter(this)
+        val adapter = NoteAdapter(this, this)
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -43,30 +45,47 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, AddNote::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
+            startActivityForResult(intent, AddNoteRequestCode)
         }
 
+    }
+
+    override fun onItemClicked(note: Note ) {
+        val intent = Intent( this, EditNote::class.java)
+        intent.putExtra(EditNote.EXTRA_ID, note.id)
+        intent.putExtra(EditNote.EXTRA_REPLY, note.title)
+        intent.putExtra(EditNote.EXTRA1_REPLY, note.content)
+        startActivityForResult(intent, UpdateActivityRequestCode)
     }
 
     //gets the data that is added in the AddCity Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val ptitle = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE)
-            val pcontent = data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT)
+        if (requestCode == AddNoteRequestCode && resultCode == RESULT_OK) {
+            val title = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE).toString()
+            val content =  data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT).toString()
+            val note = Note(title = (title), content = (content))
+            noteViewModel.insert(note)
 
-            //if the data collect is not null it inserts it into the db
-            if (ptitle!= null && pcontent != null) {
-                val note = Note(title = ptitle, content = pcontent)
-                noteViewModel.insert(note)
-            }
+            Toast.makeText(applicationContext,"Nota Adicionada",Toast.LENGTH_LONG).show()
+        }
+        else if(requestCode == AddNoteRequestCode) {
+            Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
+        }
 
-        } else {
-            Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG).show()
+        if (requestCode == UpdateActivityRequestCode && resultCode == RESULT_OK) {
+            val id = data?.getIntExtra( EditNote.EXTRA_ID, -1 )
+
+            val title = data?.getStringExtra( EditNote.EXTRA_REPLY ).toString()
+            val content = data?.getStringExtra( EditNote.EXTRA1_REPLY ).toString()
+            val note = Note(id,title,content)
+
+            noteViewModel.updateNote(note)
+            Toast.makeText(applicationContext,"Nota Editada",Toast.LENGTH_LONG).show()
+        }
+        else if(requestCode == UpdateActivityRequestCode) {
+            Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
         }
     }
 
@@ -87,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             //queries the database for all the cities in portugal
-            R.id.NotesTitle -> {
+            /*R.id.NotesTitle -> {
                 // recycler view
                 val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
                 val adapter = NoteAdapter(this)
@@ -100,9 +119,10 @@ class MainActivity : AppCompatActivity() {
                     notes?.let { adapter.setNotes(it) }
                 })
                 true
-            }
+            }*/
+
             //queries the database and orders all the cities in DESC by alphabet
-            R.id.AllNotes -> {
+           /* R.id.AllNotes -> {
                 // recycler view
                 val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
                 val adapter = NoteAdapter(this)
@@ -115,7 +135,8 @@ class MainActivity : AppCompatActivity() {
                     notes?.let { adapter.setNotes(it) }
                 })
                 true
-            }
+            }*/
+
             //queries the database and toasts the contry from where the city aveiro is
             /*R.id.getCountryFromAveiro -> {
                 cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)

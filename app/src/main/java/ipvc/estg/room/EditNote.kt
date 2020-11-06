@@ -7,35 +7,41 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import kotlinx.android.synthetic.main.activity_edit_note.*
 
 class EditNote : AppCompatActivity() {
 
-    private lateinit var titleText: EditText
-    private lateinit var contentText: EditText
+    private lateinit var editWordView: EditText
+    private lateinit var editnumberView: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
 
-       titleText = findViewById(R.id.editTitle)
-       contentText = findViewById(R.id.editContent)
-
+        val intent = intent
+        editTitle.setText( intent.getStringExtra(EXTRA_REPLY) )
+        editContent.setText( intent.getStringExtra(EXTRA1_REPLY) )
+        val id = intent.getIntExtra( EXTRA_ID , -1)
         val button = findViewById<Button>(R.id.updateBtt)
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(titleText.text)) {
-                setResult(Activity.RESULT_CANCELED, replyIntent)
-            } else {
-                replyIntent.putExtra(EXTRA_REPLY_TITLE, titleText.text.toString())
-                replyIntent.putExtra(EXTRA_REPLY_CONTENT, contentText.text.toString())
-                setResult(Activity.RESULT_OK, replyIntent)
+
+            val title = editWordView.text.toString()
+            val content = editnumberView.text.toString()
+            if( id != -1 ) {
+                replyIntent.putExtra(EXTRA_ID, id)
             }
+            replyIntent.putExtra(EXTRA_REPLY, title)
+            replyIntent.putExtra(EXTRA1_REPLY, content)
+            setResult(Activity.RESULT_OK, replyIntent)
+
             finish()
         }
     }
 
     companion object {
-        const val EXTRA_REPLY_TITLE = "com.example.androaid.city"
-        const val EXTRA_REPLY_CONTENT = "com.example.android.country"
+        const val EXTRA_REPLY = "com.example.android.REPLY"
+        const val EXTRA1_REPLY = "com.example.android.REPLY1"
+        const val EXTRA_ID = "com.example.android.ID"
     }
 }
