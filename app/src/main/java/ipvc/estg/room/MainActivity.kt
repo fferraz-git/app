@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,9 +18,11 @@ import ipvc.estg.room.adapters.NoteAdapter
 import ipvc.estg.room.entities.Note
 import ipvc.estg.room.viewModel.NoteViewModel
 
-class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
+private lateinit var noteViewModel: NoteViewModel
 
-    private lateinit var noteViewModel: NoteViewModel
+abstract class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener, NoteAdapter.OnItemLongClickListener{
+
+
     private val AddNoteRequestCode = 1
     private val UpdateActivityRequestCode = 2
 
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
         // recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = NoteAdapter(this, this)
+        val adapter = NoteAdapter(this, this, this)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -48,7 +51,16 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
             startActivityForResult(intent, AddNoteRequestCode)
         }
 
+        fun onItemLongClick(viewHolder: RecyclerView.ViewHolder) {
+            noteViewModel.deleteNote( adapter.getNoteAt(viewHolder.adapterPosition) )
+        }
+
     }
+
+
+/*fun (note: Note, viewHolder: RecyclerView.ViewHolder){
+        noteViewModel.deleteNote( recyclerView.adapter.getNoteAt(viewHolder.adapterPosition) )
+    }*/
 
     override fun onItemClicked(note: Note ) {
         val intent = Intent( this, EditNote::class.java)
@@ -105,64 +117,6 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
                 noteViewModel.deleteAll()
                 true
             }
-            //queries the database for all the cities in portugal
-            /*R.id.NotesTitle -> {
-                // recycler view
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = NoteAdapter(this)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                // view model
-                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-                noteViewModel.getNotesByTitle("Portugal").observe(this, Observer { notes ->
-                    // Update the cached copy of the words in the adapter.
-                    notes?.let { adapter.setNotes(it) }
-                })
-                true
-            }*/
-
-            //queries the database and orders all the cities in DESC by alphabet
-           /* R.id.AllNotes -> {
-                // recycler view
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = NoteAdapter(this)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                // view model
-                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-                noteViewModel.allNotes.observe(this, Observer { notes ->
-                    // Update the cached copy of the words in the adapter.
-                    notes?.let { adapter.setNotes(it) }
-                })
-                true
-            }*/
-
-            //queries the database and toasts the contry from where the city aveiro is
-            /*R.id.getCountryFromAveiro -> {
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.getCountryFromCity("Aveiro").observe(this, Observer { city ->
-                    Toast.makeText(this, city.country, Toast.LENGTH_SHORT).show()
-                })
-                true
-            }*/
-            //deletes the entry aveiro from the db
-            R.id.DeleteByTitle -> {
-                noteViewModel.deleteByTitle("Aveiro")
-                true
-            }
-
-            //alter the db aveiro entry
-            /*R.id.alterar -> {
-                val city = City(id = 1, city = "xxx", country = "xxx")
-                cityViewModel.updateCity(city)
-                true
-            }
-            //changes aveiro country
-            R.id.alteraraveiro -> {
-                cityViewModel.updateCountryFromCity("Aveiro", "Japão")
-                true
-            }*/
-
             else -> super.onOptionsItemSelected(item)
         }
     }

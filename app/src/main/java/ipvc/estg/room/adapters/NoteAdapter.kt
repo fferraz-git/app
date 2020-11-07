@@ -1,7 +1,6 @@
 package ipvc.estg.room.adapters
 
 import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +8,12 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import ipvc.estg.room.R
 import ipvc.estg.room.entities.Note
-import ipvc.estg.room.viewModel.NoteViewModel
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class NoteAdapter internal constructor  (
     context: Context,
-    val itemClickListener : OnItemClickListener)
+    val itemClickListener : OnItemClickListener,
+    val itemLongClickListener: OnItemLongClickListener)
     : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>()
 
 {
@@ -36,6 +35,12 @@ class NoteAdapter internal constructor  (
             }
         }
 
+        fun bind2(note: Note, longClickListener: OnItemLongClickListener){
+            itemView.setOnLongClickListener{
+                longClickListener.onItemLongClick(note)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -49,6 +54,7 @@ class NoteAdapter internal constructor  (
         holder.noteContentView.text = current.content
 
         holder.bind( current, itemClickListener )
+        holder.bind2(current, itemLongClickListener )
     }
 
     internal fun setNotes(notes: List<Note>) {
@@ -60,6 +66,13 @@ class NoteAdapter internal constructor  (
         fun onItemClicked( note: Note )
     }
 
+    interface OnItemLongClickListener{
+        fun onItemLongClick( note: Note )
+    }
+
+    fun getNoteAt(position: Int): Note {
+        return notes[position]
+    }
     override fun getItemCount() = notes.size
 
 }

@@ -29,15 +29,6 @@ public abstract class NoteDB : RoomDatabase() {
 
                     // Delete all content here.
                     //noteDao.deleteAll()
-
-                    // Add sample cities.
-                    /*var note = Note(1, "Viana do Castelo", "Portugal")
-                    noteDao.insert(note)
-                    note = Note(2, "Porto", "Portugal")
-                    noteDao.insert(note)
-                    note = Note(3, "Aveiro", "Portugal")
-                    noteDao.insert(note)*/
-
                 }
             }
         }

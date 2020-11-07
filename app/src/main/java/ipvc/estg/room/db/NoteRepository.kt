@@ -17,10 +17,6 @@ class NoteRepository(private val noteDao: NoteDao) {
         return noteDao.getNotesByTitle(title)
     }
 
-   /* fun getCountryFromCity(title: String): LiveData<Note> {
-        return noteDao.getCountryFromCity(title)
-    }*/
-
     suspend fun insert(note: Note) {
         noteDao.insert(note)
     }
@@ -29,20 +25,12 @@ class NoteRepository(private val noteDao: NoteDao) {
         noteDao.deleteAll()
     }
 
-    suspend fun deleteByTitle(title: String){
-        noteDao.deleteByTitle(title)
+    suspend fun deleteNote( note: Note ) {
+        noteDao.deleteNote( note )
     }
 
     suspend fun updateNote(note: Note) {
         noteDao.updateNote(note)
     }
 
-
-   /* suspend fun updateCity(note: Note) {
-        noteDao.updateCity(note)
-    }
-
-    suspend fun updateCountryFromCity(title: String, content: String){
-        noteDao.updateCountryFromCity(title, content)
-    }*/
 }
