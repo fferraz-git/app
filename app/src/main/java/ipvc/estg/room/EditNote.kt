@@ -11,12 +11,15 @@ import kotlinx.android.synthetic.main.activity_edit_note.*
 
 class EditNote : AppCompatActivity() {
 
-    private lateinit var editWordView: EditText
-    private lateinit var editnumberView: EditText
+    private lateinit var editTitle: EditText
+    private lateinit var editContent: EditText
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
+
+        editTitle = findViewById(R.id.editTitle)
+        editContent = findViewById(R.id.editContent)
 
         val intent = intent
         editTitle.setText( intent.getStringExtra(EXTRA_REPLY) )
@@ -26,8 +29,8 @@ class EditNote : AppCompatActivity() {
         button.setOnClickListener {
             val replyIntent = Intent()
 
-            val title = editWordView.text.toString()
-            val content = editnumberView.text.toString()
+            val title = editTitle.text.toString()
+            val content = editContent.text.toString()
             if( id != -1 ) {
                 replyIntent.putExtra(EXTRA_ID, id)
             }
