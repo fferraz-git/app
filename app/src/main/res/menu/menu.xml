@@ -2,44 +2,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/NotesTitle"
-        android:title="Notes by title"
-        app:showAsAction="never">
-
-    </item>
-
     <item android:id="@+id/AllNotes"
         android:title="All notes"
         app:showAsAction="never">
 
     </item>
 
-    <item android:id="@+id/getNotefromTitle"
-        android:title="Get note from title"
-        app:showAsAction="never">
-
-    </item>
-
-
     <item android:id="@+id/DeleteAll"
         android:title="Delete all"
-        app:showAsAction="never">
-
-    </item>
-
-    <item android:id="@+id/DeleteByTitle"
-        android:title="Delete by title"
-        app:showAsAction="never">
-    </item>
-
-
-    <item android:id="@+id/Alter"
-        android:title="Alter"
-        app:showAsAction="never">
-
-    </item>
-    <item android:id="@+id/AlterSpecific"
-        android:title="Alter Aveiro"
         app:showAsAction="never">
 
     </item>

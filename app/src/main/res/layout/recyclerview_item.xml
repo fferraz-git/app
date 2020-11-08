@@ -6,17 +6,9 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView
+        android:layout_centerHorizontal="true"
         android:id="@+id/titles"
-        android:layout_below="@id/textView"
-        android:layout_alignLeft="@id/textView"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </TextView>
@@ -25,8 +17,7 @@
         android:id="@+id/contents"
         android:layout_marginTop="10dp"
         android:layout_below="@id/titles"
-        android:layout_alignLeft="@id/titles"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </TextView>
 

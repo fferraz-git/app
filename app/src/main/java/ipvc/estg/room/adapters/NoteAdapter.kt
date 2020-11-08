@@ -22,7 +22,7 @@ class NoteAdapter internal constructor  (
     private var notes = emptyList<Note>() // Cached copy of notes
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val noteItemView= itemView.textView
+        //val noteItemView= itemView.textView
         val noteTitleView = itemView.titles
         val noteContentView= itemView.contents
 
