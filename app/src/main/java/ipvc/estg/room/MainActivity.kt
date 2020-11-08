@@ -23,7 +23,6 @@ private lateinit var noteViewModel: NoteViewModel
 
 class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*NoteAdapter.OnItemLongClickListener*/{
 
-    //comment to comit the new master
     private val AddNoteRequestCode = 1
     private val UpdateActivityRequestCode = 2
 
@@ -96,10 +95,10 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
             val note = Note(title = (title), content = (content))
             noteViewModel.insert(note)
 
-            Toast.makeText(applicationContext,"Nota Adicionada",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,R.string.noteadd,Toast.LENGTH_LONG).show()
         }
         else if(requestCode == AddNoteRequestCode) {
-            Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,R.string.miss,Toast.LENGTH_LONG).show()
         }
 
         if (requestCode == UpdateActivityRequestCode && resultCode == RESULT_OK) {
@@ -110,10 +109,10 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
             val note = Note(id,title,content)
 
             noteViewModel.updateNote(note)
-            Toast.makeText(applicationContext,"Nota Editada",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,R.string.notedit,Toast.LENGTH_LONG).show()
         }
         else if(requestCode == UpdateActivityRequestCode) {
-            Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,R.string.miss,Toast.LENGTH_LONG).show()
         }
     }
 

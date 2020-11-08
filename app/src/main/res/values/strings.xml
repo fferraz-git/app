@@ -4,4 +4,9 @@
     <string name="empty_not_saved">Empty Title: please insert</string>
     <string name="insertcity">Insert title</string>
     <string name="insertcountry">Insert content</string>
+    <string name="shownotes">Show all notes</string>
+    <string name="deletenotes">Delete all notes</string>
+    <string name="noteadd">Note added</string>
+    <string name="notedit">Note edited</string>
+    <string name="miss">Missing fields</string>
 </resources>

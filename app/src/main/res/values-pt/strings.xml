@@ -5,4 +5,9 @@
     <string name="empty_not_saved">Titulo vazio: não inserido</string>
     <string name="insertcity">Insira Titulo</string>
     <string name="insertcountry">Insira Conteudo</string>
+    <string name="shownotes">Mostrar Notas</string>
+    <string name="deletenotes">Apagar todas Notas</string>
+    <string name="noteadd">Nota adicionada</string>
+    <string name="notedit">Nota editada</string>
+    <string name="miss">Campos imcompleto</string>
 </resources>
