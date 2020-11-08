@@ -133,6 +133,20 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
                 noteViewModel.deleteAll()
                 true
             }
+            R.id.AllNotes -> {
+                // recycler view
+                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+                val adapter = NoteAdapter(this, this)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+                // view model
+                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+                noteViewModel.allNotes.observe(this, Observer { notes ->
+                    // Update the cached copy of the words in the adapter.
+                    notes?.let { adapter.setNotes(it) }
+                })
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
