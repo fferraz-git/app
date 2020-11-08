@@ -23,7 +23,7 @@ private lateinit var noteViewModel: NoteViewModel
 
 class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*NoteAdapter.OnItemLongClickListener*/{
 
-
+    //comment to comit the new master
     private val AddNoteRequestCode = 1
     private val UpdateActivityRequestCode = 2
 
