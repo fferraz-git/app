@@ -44,39 +44,41 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
             notes?.let { adapter.setNotes(it) }
         })
 
-        //Fab
+        //floating button that leads to the add activity
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, AddNote::class.java)
             startActivityForResult(intent, AddNoteRequestCode)
         }
 
+        //item touch helper for deleting apps by swiping either to the right or left
         val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT ) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
-
+            //method for the swipe
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 noteViewModel.deleteNote( adapter.getNoteAt(viewHolder.adapterPosition) )
             }
 
         }
-
+        //value that attaches the swipe capability to the recycler
         val itemTouchHelper = ItemTouchHelper( itemTouchHelperCallback )
         itemTouchHelper.attachToRecyclerView( recyclerview )
 
-
+        //failed attempt at deleting with a long click
         /*fun onItemLongClick(viewHolder: RecyclerView.ViewHolder) {
             noteViewModel.deleteNote( adapter.getNoteAt(viewHolder.adapterPosition) )
         }*/
 
     }
 
-
-/*fun (note: Note, viewHolder: RecyclerView.ViewHolder){
+    //failed attempt at deleting with a long click v2
+    /*fun onItemLongClick (note: Note, viewHolder: RecyclerView.ViewHolder){
         noteViewModel.deleteNote( recyclerView.adapter.getNoteAt(viewHolder.adapterPosition) )
     }*/
 
+    //onclick method for de edition of notes getting the values from the editnote activity
     override fun onItemClicked(note: Note ) {
         val intent = Intent( this, EditNote::class.java)
         intent.putExtra(EditNote.EXTRA_ID, note.id)
@@ -85,10 +87,10 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
         startActivityForResult(intent, UpdateActivityRequestCode)
     }
 
-    //gets the data that is added in the AddCity Activity
+    //gets the data that is added in the AddCity Activity and the editnote activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        //if the code returned is the one associated with the addacitvity
         if (requestCode == AddNoteRequestCode && resultCode == RESULT_OK) {
             val title = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE).toString()
             val content =  data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT).toString()
@@ -100,10 +102,9 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
         else if(requestCode == AddNoteRequestCode) {
             Toast.makeText(applicationContext,R.string.miss,Toast.LENGTH_LONG).show()
         }
-
+        //if the code returned is the one associated with the editactivity
         if (requestCode == UpdateActivityRequestCode && resultCode == RESULT_OK) {
             val id = data?.getIntExtra( EditNote.EXTRA_ID, -1 )
-
             val title = data?.getStringExtra( EditNote.EXTRA_REPLY ).toString()
             val content = data?.getStringExtra( EditNote.EXTRA1_REPLY ).toString()
             val note = Note(id,title,content)
@@ -132,6 +133,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener /*Note
                 noteViewModel.deleteAll()
                 true
             }
+            //shows all the entries in the db
             R.id.AllNotes -> {
                 // recycler view
                 val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)

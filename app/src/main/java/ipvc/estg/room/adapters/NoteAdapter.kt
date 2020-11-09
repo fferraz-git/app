@@ -10,13 +10,17 @@ import ipvc.estg.room.R
 import ipvc.estg.room.entities.Note
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
+/* READ FIRST
+* all the commented values, methods, functions and interface are
+* due to a failed attempt to implementing a longclick method
+* to delete an entry in the recycler
+ */
+
 class NoteAdapter internal constructor  (
     context: Context,
     val itemClickListener : OnItemClickListener
     /*val itemLongClickListener: OnItemLongClickListener*/)
-    : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>()
-
-{
+    : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var notes = emptyList<Note>() // Cached copy of notes
@@ -26,6 +30,7 @@ class NoteAdapter internal constructor  (
         val noteTitleView = itemView.titles
         val noteContentView= itemView.contents
 
+        //bind function to set up the on click for the recycler
         fun bind( note: Note, clickListener: OnItemClickListener /*longClickListener: OnItemLongClickListener*/) {
             noteTitleView.text = note.title
             noteContentView.text = note.content
@@ -76,6 +81,7 @@ class NoteAdapter internal constructor  (
     fun getNoteAt(position: Int): Note {
         return notes[position]
     }
+
     override fun getItemCount() = notes.size
 
 }

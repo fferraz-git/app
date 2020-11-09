@@ -18,8 +18,6 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository: NoteRepository
 
-
-
     // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
@@ -35,6 +33,7 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
+    //inserts a single note
     fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(note)
     }
@@ -44,10 +43,12 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
         repository.deleteAll()
     }
 
+    //delete a single note
     fun deleteNote(note: Note) = viewModelScope.launch{
         repository.deleteNote(note)
     }
 
+    //updates a single note
     fun updateNote(note: Note) = viewModelScope.launch{
         repository.updateNote(note)
     }

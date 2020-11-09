@@ -20,12 +20,15 @@ class AddNote : AppCompatActivity() {
        titleText = findViewById(R.id.title)
        contentText = findViewById(R.id.content)
 
+        //puts the button "listening" to click
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
+            // value that initiates the intent
             val replyIntent = Intent()
             if (TextUtils.isEmpty(titleText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
+                //sends the added values with the reply intent
                 replyIntent.putExtra(EXTRA_REPLY_TITLE, titleText.text.toString())
                 replyIntent.putExtra(EXTRA_REPLY_CONTENT, contentText.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)

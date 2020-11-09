@@ -27,7 +27,7 @@ public abstract class NoteDB : RoomDatabase() {
                 scope.launch {
                     var noteDao = database.noteDao()
 
-                    // Delete all content here.
+                    // Delete all content every time the app restarts
                     //noteDao.deleteAll()
                 }
             }
@@ -35,8 +35,7 @@ public abstract class NoteDB : RoomDatabase() {
     }
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
+        // Singleton prevents multiple instances of database opening at the same time.
         @Volatile
         private var INSTANCE: NoteDB? = null
 
@@ -51,7 +50,7 @@ public abstract class NoteDB : RoomDatabase() {
                     NoteDB::class.java,
                     "notes"
                 )
-                    //estratégia de destruição
+                    //destruction strategy
                     .fallbackToDestructiveMigration()
                     .addCallback(WordDatabaseCallback(scope))
                     .build()
