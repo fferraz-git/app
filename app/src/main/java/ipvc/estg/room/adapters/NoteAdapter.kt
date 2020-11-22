@@ -30,7 +30,7 @@ class NoteAdapter internal constructor  (
         val noteTitleView = itemView.titles
         val noteContentView= itemView.contents
 
-        //bind function to set up the on click for the recycler
+        //bind function to set up the on click
         fun bind( note: Note, clickListener: OnItemClickListener /*longClickListener: OnItemLongClickListener*/) {
             noteTitleView.text = note.title
             noteContentView.text = note.content
@@ -69,6 +69,7 @@ class NoteAdapter internal constructor  (
         notifyDataSetChanged()
     }
 
+    //interface so that the click function can be called
     interface OnItemClickListener {
         fun onItemClicked( note: Note )
     }
@@ -78,6 +79,7 @@ class NoteAdapter internal constructor  (
         fun onItemLongClick( note: Note )
     }*/
 
+    //function to the position of a recycler item in the db
     fun getNoteAt(position: Int): Note {
         return notes[position]
     }

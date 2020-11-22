@@ -12,8 +12,12 @@ import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the City class
 
-// Note: When you modify the database schema, you'll need to update the version number and define a migration strategy
-//For a sample, a destroy and re-create strategy can be sufficient. But, for a real app, you must implement a migration strategy.
+// Note: When you modify the database schema, you'll need to update the version number and define
+// a migration strategy, for a sample, a destroy and re-create strategy can be sufficient.
+// But, for a real app, you must implement a migration strategy.
+
+// Room: is a wrapper around and implements a SQLite database.
+// Room does a lot of work for you that you used to have to do yourself.
 
 @Database(entities = arrayOf(Note::class), version = 8, exportSchema = false)
 public abstract class NoteDB : RoomDatabase() {
@@ -25,8 +29,7 @@ public abstract class NoteDB : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    var noteDao = database.noteDao()
-
+                    //var noteDao = database.noteDao()
                     // Delete all content every time the app restarts
                     //noteDao.deleteAll()
                 }

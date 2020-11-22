@@ -14,6 +14,9 @@ import ipvc.estg.room.entities.Note
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+// Provides methods for accessing the data layer, and it returns LiveData
+// so that MainActivity can set up the observer relationship
+
 class NoteViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository: NoteRepository
@@ -22,6 +25,7 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
+
     var allNotes: LiveData<List<Note>>
 
     init {

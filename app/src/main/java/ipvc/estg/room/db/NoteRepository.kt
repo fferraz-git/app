@@ -7,6 +7,10 @@ import ipvc.estg.room.entities.Note
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
+
+// Repository: manages one or more data sources. The Repository exposes methods
+// for the ViewModel to interact with the underlying data provider.
+// In this app, that backend is a Room database.
 class NoteRepository(private val noteDao: NoteDao) {
 
     // Room executes all queries on a separate thread.
